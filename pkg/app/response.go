@@ -5,6 +5,9 @@ import (
 	"time"
 )
 
+func ResponseSetup()  {
+}
+
 type Response struct {
 	Errno int			`json:errno`
 	Msg string			`json:msg`
@@ -12,8 +15,8 @@ type Response struct {
 	Cost int			`json:cost`
 }
 
-func (app *App) ResponseSuccess(httpCode, errno int, data interface{})  {
-	app.Gin.JSON(httpCode, Response{
+func (app *App) ResponseSuccess(errno int, data interface{})  {
+	app.Gin.JSON(200, Response{
 		Errno: errno,
 		Msg:   emsg.GetMsg(errno),
 		Data:  data,
@@ -26,8 +29,8 @@ func (app *App) SetHeader(key string, value string)  {
 	app.Gin.Header(key, value)
 }
 
-func (app *App) ResponseFailed(httpCode, errno int, data interface{})  {
-	app.Gin.JSON(httpCode, Response{
+func (app *App) ResponseFailed( errno int, data interface{})  {
+	app.Gin.JSON(200, Response{
 		Errno: errno,
 		Msg:   emsg.GetMsg(errno),
 		Data:  data,

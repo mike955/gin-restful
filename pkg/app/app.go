@@ -5,9 +5,15 @@ import (
 	"time"
 )
 
+func Setup()  {
+	ResponseSetup()
+	LogSetup()
+}
+
 type App struct {
 	Gin *gin.Context
 	Cost int
+	LogPath string
 }
 
 func NewApp(c *gin.Context) *App  {

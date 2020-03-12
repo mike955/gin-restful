@@ -10,24 +10,24 @@ import (
 
 func Login( c *gin.Context)  {
 	app := G.NewApp(c)
-	//app := NewController(c)
-	//app := BaseController{Gin:c, Cost:time.Now().Nanosecond() / 1e6}
 	var account models.Account
 	if err := app.Gin.ShouldBindJSON(&account); err != nil {
 		fmt.Println(account)
 	}
 	account, err := models.Login(account.Username, account.Password)
 	if err != nil {
+		app.LogError(fmt.Sprintf("login error: %s", err))
+		app.ResponseFailed(4901, err)
 	}
 
 	token, err := utils.GenerateToken(account.Username, account.Password)
-	fmt.Println(token)
 	if err != nil {
-
+		app.LogError(fmt.Sprintf("generate token error: %s", err))
+		app.ResponseFailed(4901, err)
 	}
 	account.Password = ""
 	app.SetHeader("token", token)
-	app.ResponseSuccess(200, 0, account)
+	app.ResponseSuccess(0, account)
 }
 
 //func (app *AuthController) Login()  {
