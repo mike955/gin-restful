@@ -2,14 +2,14 @@ package controllers
 
 import (
 	"fmt"
-	G "gin-restful/pkg/app"
 	"gin-restful/pkg/models"
 	"gin-restful/pkg/utils"
+	"gin-restful/pkg/utils/library"
 	"github.com/gin-gonic/gin"
 )
 
 func Login( c *gin.Context)  {
-	app := G.NewApp(c)
+	app := library.NewController(c)
 	var account models.Account
 	if err := app.Gin.ShouldBindJSON(&account); err != nil {
 		fmt.Println(account)
@@ -25,6 +25,11 @@ func Login( c *gin.Context)  {
 		app.LogError(fmt.Sprintf("generate token error: %s", err))
 		app.ResponseFailed(4901, err)
 	}
+	_ = app.Rdb.Exists(account.Username)
+	//if err != nil {
+	//	app.LogError(fmt.Sprintf("set redis error: %s", err))
+	//	app.ResponseFailed(4901, err)
+	//}
 	account.Password = ""
 	app.SetHeader("token", token)
 	app.ResponseSuccess(0, account)

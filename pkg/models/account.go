@@ -2,6 +2,7 @@ package models
 
 import (
 	"errors"
+	"gin-restful/pkg/utils/library"
 	"time"
 )
 
@@ -14,8 +15,9 @@ type Account struct {
 }
 
 func Login(username, password string) (Account, error)  {
+	app := library.NewModel()
 	var account Account
-	if err := db.Where("username=?", username).Where("password=?", password).First(&account).Error; err != nil {
+	if err := app.Db.Where("username=?", username).Where("password=?", password).First(&account).Error; err != nil {
 		return account, errors.New( "sql error")
 	}
 	return account, nil

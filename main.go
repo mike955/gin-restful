@@ -1,16 +1,16 @@
 package main
 
 import (
-	"gin-restful/pkg/app"
-	"gin-restful/pkg/models"
 	"gin-restful/pkg/setting"
+	"gin-restful/pkg/utils"
 	"gin-restful/routes"
 )
 
 func init() {
 	setting.Setup()
-	models.Setup()
-	app.Setup()
+	//models.Setup()
+	//app.Setup()
+	utils.Setup()
 }
 
 func main() {
