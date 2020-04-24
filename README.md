@@ -1,4 +1,4 @@
-# gin-restful
+# webgo
 a resuful api project using gin framework
 
 ## api
