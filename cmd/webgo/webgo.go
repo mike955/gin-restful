@@ -2,39 +2,36 @@ package webgo
 
 import (
 	"github.com/spf13/cobra"
-	"webgo/build"
+)
 
-	cmdVersion "webgo/cmd/webgo/version"
-	cmdServer "webgo/cmd/webgo/server"
+var (
+	VERSION = "0.0.1"
 )
 
 func init() {
-	cmdVersion.RegisterTo(cmd, vpFlag)
-	cmdServer.RegisterTo(cmd, vpFlag)
 }
 
-var cmd = &cobra.Command{
-	Use:     build.Appname(),
-	Version: build.Version(),
-
-	Short: ``,
-	Long:  ``,
-
-	PersistentPreRun: func(c *cobra.Command, args []string) {
-		vpFlag.BindPFlags(c.Flags())
-		if cmdVersion.Called(c) {
-			return
-		}
-	},
-
-	PreRun: func(c *cobra.Command, args []string) {
-	},
-
-	Run: func(c *cobra.Command, args []string) {
-		c.Help()
-	},
-}
 func NewWebgoCommand() *cobra.Command {
+	var cmd = &cobra.Command{
+		Use:     "webgo",
+		Version: VERSION,
+
+		Short: ``,
+		Long:  ``,
+
+		PersistentPreRun: func(c *cobra.Command, args []string) {
+		},
+
+		PreRun: func(c *cobra.Command, args []string) {
+		},
+
+		Run: func(c *cobra.Command, args []string) {
+			c.Help()
+		},
+	}
+	cmd.AddCommand(NewCmdServer())
+	cmd.AddCommand(NewCmdVersion())
 	return cmd
 }
+
 

@@ -1,31 +1,14 @@
 package web
 
-import (
-	"net/http"
-	"webgo/web/routers"
-)
+import "net/http"
 
+var SHUTTING_DOWN = false
 
+func Run()  {
+	app := NewRouter()
 
-func Run(zkConn, instanceId, appName string) (err error) {
-	// init collect
-	//collect.Collection()
-
-	// init router
-	app :=  routers.InitRouter()
-
-	// init router
-
-	// use middleware
-
-	// add log
-
-	// load config
-
-
-	// start server
 	server := http.Server{
-		Addr:              "",
+		Addr:              ":8081",
 		Handler:           app,
 		TLSConfig:         nil,
 		ReadTimeout:       0,
@@ -42,5 +25,4 @@ func Run(zkConn, instanceId, appName string) (err error) {
 	if err := server.ListenAndServe(); err != nil {
 		panic(err)
 	}
-	return nil
 }
