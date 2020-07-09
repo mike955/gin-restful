@@ -1,0 +1,14 @@
+{
+	"folders": [
+    {
+      "path": "."
+    },
+    {
+      "path": "../../../../../../../source/go/gin"
+    },
+    {
+      "path": "../../../../../../../source/go/kratos/pkg/net/http/blademaster"
+    }
+  ],
+  "settings": {}
+}
